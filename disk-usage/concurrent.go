@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func walkDirCon(dir string, wg *sync.WaitGroup, fileSizes chan int64, sema chan bool) {
+func walkDirCon(dir string, wg *sync.WaitGroup, fileSizes chan<- int64, sema chan bool) {
 	defer wg.Done()
 
 	for _, entry := range getDirEntriesSema(dir, sema) {
@@ -31,10 +31,11 @@ func RunConcurrent() {
 	sema := make(chan bool, 50)
 	wg := sync.WaitGroup{}
 
-	// Walk directory
+	// Traverse directory
 	wg.Add(1)
 	go walkDirCon(root, &wg, fileSizes, sema)
 
+	// Wait for the traversal to finish
 	go func() {
 		wg.Wait()
 		close(fileSizes)
@@ -42,6 +43,7 @@ func RunConcurrent() {
 
 	tick := time.Tick(500 * time.Millisecond)
 
+	// Receive results
 loop:
 	for {
 		select {
