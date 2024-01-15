@@ -1,6 +1,6 @@
 build: clean
-	go build -o ./bin/cc
+	go build -o ./bin/du
 clean:
-	rm -rf ./bin/cc
+	rm -rf ./bin/du
 run:
-	./bin/cc
+	./bin/du
