@@ -16,12 +16,13 @@ func walkDir(dir string) {
 			filename := filepath.Join(dir, name)
 			walkDir(filename)
 		} else {
-			newFilename := fmt.Sprintf("out/%s-%s", name, uuid.NewString())
+			newFilename := fmt.Sprintf("out/%s-%s.txt", name, uuid.NewString())
 			copyFile(fileOrDir, newFilename)
 		}
 	}
 }
 
 func RunSequential() {
-	walkDir("in")
+	dir := "in"
+	walkDir(dir)
 }
