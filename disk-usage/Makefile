@@ -3,4 +3,4 @@ build: clean
 clean:
 	rm -rf ./bin/du
 run:
-	./bin/du
+	./bin/du in
