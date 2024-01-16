@@ -8,7 +8,7 @@ import (
 func main() {
 	started := time.Now()
 
-	RunSequential()
+	RunConcurrent()
 
 	elapsed := time.Since(started)
 	fmt.Printf("Finished: %.2fs\n", elapsed.Seconds())
