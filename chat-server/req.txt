@@ -1,0 +1,4 @@
+Requirements:
+  * A user should be able to join a chat server
+  * When a user joins, the server should broadcast the new user to all users
+  * After a user joins, the user should be able to send messages to the server, and the server should broadcast it to all users

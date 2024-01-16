@@ -1,9 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net"
-	"time"
+	"os"
 )
 
 func main() {
@@ -14,14 +15,23 @@ func main() {
 
 	defer conn.Close()
 
-	for {
-		fmt.Println("Hey")
-		_, err = conn.Write([]byte("Hello"))
+	scanner := bufio.NewScanner(os.Stdin)
 
-		time.Sleep(500 * time.Millisecond)
+	go func() {
+		connSc := bufio.NewScanner(conn)
 
-		if err != nil {
-			panic(err)
+		for connSc.Scan() {
+			message := connSc.Text()
+
+			fmt.Println(message)
+		}
+	}()
+
+	for scanner.Scan() {
+		message := scanner.Text()
+
+		if message != "" {
+			fmt.Fprintln(conn, message)
 		}
 	}
 }
